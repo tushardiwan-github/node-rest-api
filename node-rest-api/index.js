@@ -29,7 +29,7 @@ mongoose.connect(dbConfig.url, {
 //Default Route >>
 router.get('/',(req,res,next) =>{
     res.status(200).json({
-        message: 'Handling NODE REST API request for EagleAccess'
+        message: 'Handling NODE REST API request for Employee Service'
     })
 });
 
