@@ -5,6 +5,9 @@ const app = express();
 const router = express.Router();
 const dbConfig = require('./config/database.config.js');
 const cors = require('cors');
+const fs = require('fs');
+const morgan = require('morgan');
+const path = require('path');
 const port = process.env.PORT || 3000;
 
 
@@ -25,6 +28,12 @@ mongoose.connect(dbConfig.url, {
     console.log('Could not connect to the database. Exiting now...', err);
     process.exit();
 }),8000);
+
+// create a write stream (in append mode) 
+var accessLogStream = fs.createWriteStream(path.join(__dirname,'access.log'),{flags : 'a'});
+
+// setup the logger 
+app.use(morgan('combined', {stream : accessLogStream }));
 
 //Default Route >>
 router.get('/',(req,res,next) =>{
